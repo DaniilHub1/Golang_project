@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="static/css/auth.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="/index.html">Главная страница</a>
+        <a href="/account">Аккаунт</a>
+        <a href="/posts">Посты</a>
+        <a href="/settings">Настройки</a>
+        <a href="/login">Вход</a>
+        <a href="register">Регистрация</a>
+    </div>
+    <div class="main-content">
+    <h2>Вход</h2>
+    <form action="/login" method="POST">
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <button type="submit">Войти</button>
+    </form>
+    </div>
+</body>
+</html>
+

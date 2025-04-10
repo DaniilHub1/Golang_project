@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/posts.css">
+    <title>Posts</title>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="/index.html">Главная страница</a>
+        <a href="/account">Аккаунт</a>
+        <a href="/posts">Посты</a>
+        <a href="/settings">Настройки</a>
+        <a href="/login">Вход</a>
+        <a href="register">Регистрация</a>
+    </div>
+    <div class="main-content">
+        <h1>Posts</h1>
+        <div class="content-container">
+            <ul>
+                {{range .posts}}
+                    <li class="post">
+                        <h2>{{.Title}}</h2>
+                        <p>{{.Content}}</p> 
+                        <p class="username">Автор: {{.Author}} | Дата: {{.Date}}</p>
+                    </li>
+                {{else}}
+                    <li>No posts available</li>
+                {{end}}
+            </ul>            
+        </div>
+    </div>
+</body>
+</html>

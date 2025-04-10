@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="scripts.js"></script>
+    <title>Публикации</title>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="/index.html">Главная страница</a>
+        <a href="/account">Аккаунт</a>
+        <a href="/posts">Посты</a>
+        <a href="/settings">Настройки</a>
+        <a href="/login">Вход</a>
+        <a href="register">Регистрация</a>
+    </div>
+
+    <div class="main-content">
+        <h1 class="coc">Socius</h1>
+        <div class="content-container">
+            <h2>Поделиться постом</h2>
+            <form action="/posts" method="POST">
+                <label for="username">Имя пользователя:</label><br>
+                <input type="text" id="username" name="username" required><br>
+            
+                <label for="title">Заголовок:</label><br>
+                <input type="text" id="title" name="title" required><br>
+                            
+                <label for="content">Содержание:</label><br>
+                <textarea id="content" name="content" required></textarea><br>
+                        
+                <input type="submit" value="Создать пост">
+            </form>                               
+            <h1>Posts</h1>
+<ul>
+    {{range .posts}}
+    <li class="post">
+        <p class="username">{{.Username}} пишет:</p> 
+        <h2>{{.Title}}</h2>
+        <p>{{.Content}}</p>
+    </li>
+    {{end}}
+</ul>
+           
+        </div>
+    </div>
+</body>
+</html>
