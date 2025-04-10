@@ -45,5 +45,5 @@ func main() {
     router.POST("/settings", handlers.SaveSettings)
     router.POST("/profile/save", handlers.SaveProfileSettings)
 
-    router.Run("0.0.0.0:8080")
+    router.Run("217.194.148.61:8080")
 }
