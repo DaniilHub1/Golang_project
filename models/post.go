@@ -1,12 +1,15 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type Post struct {
-    ID       int
-    Title    string
-    Content  string  
-    Author   string
-    Date     time.Time
-    Username string 
+	ID        uint      `gorm:"primaryKey"`
+	Content   string    `gorm:"not null"`
+	UserID    uint      
+	User      User      // связь с юзером
+	CreatedAt time.Time
+    Title string 
+	IsAdmin   bool  
 }

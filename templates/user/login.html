@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Вход</title>
+    <link rel="stylesheet" href="static/css/auth.css" />
+    <style>
+      :root {
+        --font-main: "Segoe UI", "Inter", sans-serif;
+        --success-bg: rgba(230, 244, 234, 0.75);
+        --success-border: #34a853;
+        --success-text: #1e4620;
+
+        --error-bg: rgba(253, 236, 234, 0.75);
+        --error-border: #d93025;
+        --error-text: #611a15;
+
+        --alert-radius: 10px;
+        --alert-padding: 10px 14px;
+        --alert-font-size: 13.5px;
+        --alert-blur: blur(12px);
+        --alert-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --transition-speed: 0.4s ease;
+      }
+
+      .alert {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        max-width: 320px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: var(--alert-padding);
+        border-radius: var(--alert-radius);
+        font-family: var(--font-main);
+        font-size: var(--alert-font-size);
+        line-height: 1.4;
+        backdrop-filter: var(--alert-blur);
+        -webkit-backdrop-filter: var(--alert-blur);
+        box-shadow: var(--alert-shadow);
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity var(--transition-speed),
+          transform var(--transition-speed);
+        z-index: 9999;
+        border-left: 4px solid transparent;
+      }
+
+      .alert.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .alert.success {
+        background: var(--success-bg);
+        color: var(--success-text);
+        border-left-color: var(--success-border);
+      }
+
+      .alert.error {
+        background: var(--error-bg);
+        color: var(--error-text);
+        border-left-color: var(--error-border);
+      }
+
+      .alert .icon {
+        font-size: 16px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+
+      .alert button {
+        margin-left: auto;
+        background: transparent;
+        border: none;
+        font-size: 14px;
+        color: inherit;
+        cursor: pointer;
+        line-height: 1;
+        padding: 0 4px;
+        border-radius: 4px;
+        transition: background 0.2s ease;
+      }
+
+      .alert button:hover {
+        background: rgba(0, 0, 0, 0.06);
+      }
+
+      @media (max-width: 480px) {
+        .alert {
+          top: 12px;
+          right: 12px;
+          max-width: 90%;
+          font-size: 13px;
+          padding: 9px 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {{if .Error}}
+    <div id="error-alert" class="alert error">
+      <span class="icon">⚠️</span>
+      <span>{{.Error}}</span>
+      <button onclick="hideAlert('error-alert')" aria-label="Закрыть">✖</button>
+    </div>
+    {{end}} {{if .Success}}
+    <div id="success-alert" class="alert success">
+      <span class="icon">✅</span>
+      <span>{{.Success}}</span>
+      <button onclick="hideAlert('success-alert')" aria-label="Закрыть">
+        ✖
+      </button>
+    </div>
+    {{end}}
+
+    <div class="sidebar">
+      <a href="/account">Аккаунт</a>
+      <a href="/posts_page">Посты</a>
+      <a href="/settings">Настройки</a>
+      <a href="/login">Вход</a>
+      <a href="/register">Регистрация</a>
+      <a href="/chat">Мессенджер</a>
+    </div>
+
+    <div class="main-content">
+      <h2>Вход</h2>
+      <div class="form-container">
+        <form action="/login" method="POST">
+          <div class="form-group">
+            <label for="username">Имя пользователя:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Введите имя пользователя"
+              required
+            /><br /><br />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Введите пароль"
+              required
+            /><br /><br />
+          </div>
+
+          <div class="form-group">
+            <button type="submit">Войти</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function showAlert(id) {
+        const alertEl = document.getElementById(id);
+        if (!alertEl) return;
+
+        alertEl.classList.add("show");
+
+        setTimeout(() => {
+          hideAlert(id);
+        }, 4000);
+      }
+
+      function hideAlert(id) {
+        const alertEl = document.getElementById(id);
+        if (alertEl) {
+          alertEl.classList.remove("show");
+        }
+      }
+
+      window.onload = function () {
+        {{if .Error}} showAlert("error-alert"); {{end}}
+        {{if .Success}} showAlert("success-alert"); {{end}}
+      };
+    </script>
+  </body>
+</html>

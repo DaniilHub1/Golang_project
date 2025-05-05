@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/account.css" />
+    <title>Аккаунт</title>
+  </head>
+  <body>
+    <div class="sidebar">
+      <a href="/account">Аккаунт</a>
+      <a href="/posts_page">Посты</a>
+      <a href="/settings">Настройки</a>
+      <a href="/login">Вход</a>
+      <a href="/register">Регистрация</a>
+      <a href="/chat">Мессенджер</a>
+    </div>
+
+    <div class="main-content">
+      <div class="content-container">
+        <h2>Аккаунт</h2>
+        <img
+          src="{{.Avatar}}"
+          id="circle"
+          class="avt"
+          style="
+            width: 150px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 20px;
+          "
+        />
+
+        <form action="/posts_page" method="post">
+          <label for="title">Заголовок:</label>
+          <input type="text" id="title" name="title" required />
+
+          <label for="content">Содержание:</label>
+          <textarea
+            id="content"
+            name="content"
+            rows="6"
+            required
+            placeholder="Введите текст поста..."
+          ></textarea>
+
+          <button type="submit">Добавить пост</button>
+        </form>
+
+        <h2>Ваши посты</h2>
+        <ul>
+          {{range .Posts}}
+          <li class="post">
+            <h2>{{.Title}}</h2>
+            <p>{{.Content}}</p>
+            <p class="username">Автор: {{.Author}} | Дата: {{.Date}}</p>
+          </li>
+          {{else}}
+          <li>Пока нет постов</li>
+          {{end}}
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

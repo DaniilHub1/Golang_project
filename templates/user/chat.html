@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Чат</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #1e1e2f;
+        height: 100vh;
+        display: flex;
+      }
+
+      .chat-container {
+        display: flex;
+        width: 100%;
+      }
+
+      .sidebar {
+        width: 300px;
+        background: #2a2a40;
+        color: #fff;
+        padding: 10px;
+        overflow-y: auto;
+      }
+
+      .chat-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .chat-item {
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 5px;
+        transition: background 0.2s;
+      }
+
+      .chat-item:hover {
+        background: #57606f;
+      }
+
+      .chat-item.active {
+        background: #747d8c;
+      }
+
+      .chat-main {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .messages {
+        flex-grow: 1;
+        background: #2f2f48;
+        padding: 15px;
+        border-radius: 10px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+      }
+
+      .message {
+        margin-bottom: 15px;
+      }
+
+      .message.you {
+        text-align: right;
+      }
+
+      .message .bubble {
+        display: inline-block;
+        padding: 10px 14px;
+        border-radius: 16px;
+        background: #dfe4ea;
+        max-width: 60%;
+      }
+
+      .message.you .bubble {
+        background: #70a1ff;
+        color: white;
+      }
+
+      .send-box {
+        display: flex;
+      }
+
+      .send-box input {
+        flex-grow: 1;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
+
+      .send-box button {
+        margin-left: 10px;
+        padding: 10px 15px;
+        border: none;
+        background: #2ed573;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .send-box button:hover {
+        background: #1eae5d;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div class="chat-container">
+      <div class="sidebar">
+        <h2>Контакты</h2>
+        <ul class="chat-list" id="chatList"></ul>
+      </div>
+      <div class="chat-main">
+        <div class="messages" id="messages"></div>
+        <div class="send-box">
+          <input id="message-input" placeholder="Напиши сообщение..." />
+          <button id="send-button">Отправить</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let currentUser = 1; // ты
+      let currentFriend = null;
+
+      async function loadUsers() {
+        const res = await fetch("/users"); // должен быть API GET /users
+        const users = await res.json();
+        const chatList = document.getElementById("chatList");
+        chatList.innerHTML = "";
+        users.forEach((user) => {
+          if (user.ID === currentUser) return;
+          const li = document.createElement("li");
+          li.className = "chat-item";
+          li.textContent = user.Username;
+          li.onclick = () => {
+            currentFriend = user.ID;
+            document
+              .querySelectorAll(".chat-item")
+              .forEach((e) => e.classList.remove("active"));
+            li.classList.add("active");
+            loadMessages();
+          };
+          chatList.appendChild(li);
+        });
+      }
+
+      async function loadMessages() {
+        if (!currentFriend) return;
+        const res = await fetch(
+          `/messages?user_id=${currentUser}&friend_id=${currentFriend}`
+        );
+        const data = await res.json();
+        const msgBox = document.getElementById("messages");
+        msgBox.innerHTML = "";
+        data.forEach((msg) => {
+          const div = document.createElement("div");
+          div.className =
+            "message " + (msg.SenderID === currentUser ? "you" : "");
+          const bubble = document.createElement("div");
+          bubble.className = "bubble";
+          bubble.textContent = msg.Content;
+          div.appendChild(bubble);
+          msgBox.appendChild(div);
+        });
+        msgBox.scrollTop = msgBox.scrollHeight;
+      }
+
+      async function sendMessage() {
+        const content = input.value;
+        if (!content || !currentFriend) return;
+
+        await fetch("/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `sender_id=${currentUser}&receiver_id=${currentFriend}&content=${encodeURIComponent(
+            content
+          )}`,
+        });
+
+        input.value = "";
+        loadMessages();
+      }
+
+      const input = document.getElementById("message-input");
+      const sendButton = document.getElementById("send-button");
+
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          sendButton.click();
+        }
+      });
+
+      sendButton.addEventListener("click", sendMessage);
+
+      loadUsers();
+      setInterval(loadMessages, 2000);
+    </script>
+  </body>
+</html>

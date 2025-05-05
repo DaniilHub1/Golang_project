@@ -1,0 +1,39 @@
+{{ define "posts.html" }}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Лента постов</title>
+    <link rel="stylesheet" href="/static/css/posts.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <a href="/account">Аккаунт</a>
+      <a href="/posts_page">Посты</a>
+      <a href="/settings">Настройки</a>
+      <a href="/login">Вход</a>
+      <a href="/register">Регистрация</a>
+      <a href="/chat">Мессенджер</a>
+    </div>
+
+    <div class="main-content">
+      <main class="feed">
+        <h1>Лента постов</h1>
+        {{ if .Posts }} {{ range .Posts }}
+        <div class="post-card">
+          <div class="post-header">
+            <strong class="username">{{ .Username }}</strong> —
+            <small class="post-time">{{ .CreatedAt }}</small>
+          </div>
+          <div class="post-content">
+            <p>{{ .Content }}</p>
+          </div>
+        </div>
+        {{ end }} {{ else }}
+        <p>Пока нет постов.</p>
+        {{ end }}
+      </main>
+    </div>
+  </body>
+</html>
+{{ end }}

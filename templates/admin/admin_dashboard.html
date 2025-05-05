@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{.title}}</title>
+    <link rel="stylesheet" href="/static/css/admin.css" />
+  </head>
+  <body>
+    <div class="admin-container">
+      <h1>Добро пожаловать в панель администратора</h1>
+      <p>Управляйте пользователями, постами и сообщениями ниже.</p>
+
+      <div class="admin-stats">
+        <div class="stat-card">
+          <h2>{{.UserCount}}</h2>
+          <p>Пользователей</p>
+        </div>
+        <div class="stat-card">
+          <h2>{{.PostCount}}</h2>
+          <p>Постов</p>
+        </div>
+        <div class="stat-card">
+          <h2>{{.MessageCount}}</h2>
+          <p>Сообщений</p>
+        </div>
+      </div>
+
+      <div class="admin-links">
+        <h3>Действия:</h3>
+        <a href="/admin/users">Управление пользователями</a>
+        <a href="/admin/adminPosts">Управление постами</a>
+        <a href="/chat">Просмотр сообщений</a>
+      </div>
+    </div>
+  </body>
+</html>

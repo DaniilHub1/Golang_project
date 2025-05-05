@@ -1,43 +1,15 @@
 body {
     display: flex;
     min-height: 100vh;
-    background-color: #0283b3;
-    color: #FFD700;
+    background-color: #1e1e2f; 
+    color: #f5f5f5; 
     font-family: 'Courier New', Courier, monospace;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
+    margin: 0;
 }
 
 .sidebar {
     width: 250px;
-    background-color: #2d3b2f;
+    background-color: #2a2a40;
     padding: 20px;
     height: 100vh;
     position: fixed;
@@ -46,27 +18,81 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar a {
     text-decoration: none;
-    color: #fff;
+    color: #f5f5f5;
     font-size: 18px;
     font-weight: bold;
     padding: 10px;
     border-radius: 8px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .sidebar a:hover {
-    background-color: #444;
+    background-color: #3bbf99;
+    color: #1e1e2f;
 }
 
 .main-content {
-    margin-left: 500px; 
+    margin-left: 300px;
     padding: 20px;
     flex-grow: 1;
-    width: 100%;
-    background-color: #0283b3;
+    background-color: #1e1e2f;
 }
+
+.form-container {
+    background-color: #2f2f48;
+    border-radius: 10px;
+    padding: 30px;
+    width: 400px;
+    margin: 40px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #44475a;
+    border-radius: 5px;
+    background-color: #1e1e2f;
+    color: #f5f5f5;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input::placeholder {
+    color: #999;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4ecca3;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #1e1e2f;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #3bbf99;
+}
+
+
+

@@ -1,15 +1,15 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     display: flex;
     margin: 0;
     height: 100vh;
-    background-color: #0283b3;
-    color: #FFD700;
+    background-color: #1e1e2f;
+    color: #f5f5f5;
 }
 
 .sidebar {
     width: 250px;
-    background-color: #2d3b2f;
+    background-color: #2a2a40;
     padding: 20px;
     position: fixed;
     height: 100%;
@@ -19,35 +19,37 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     gap: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar a {
     text-decoration: none;
-    color: #fff;
+    color: #f5f5f5;
     font-size: 18px;
     font-weight: bold;
     padding: 10px;
     border-radius: 8px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .sidebar a:hover {
-    background-color: #444;
+    background-color: #3bbf99;
+    color: #1e1e2f;
 }
 
 .content {
-    margin-left: 250px;  /* Отступ от боковой панели */
+    margin-left: 250px;
     padding: 20px;
     flex-grow: 1;
 }
 
 .settings-container {
-    background-color: #4f6b51;
+    background-color: #2f2f48;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 12px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     width: 500px;
-    margin: 0 auto;  /* Центрируем форму */
+    margin: 0 auto;
 }
 
 .avatar-section {
@@ -63,7 +65,7 @@ body {
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
-    border: 3px solid #007bff;
+    border: 3px solid #4ecca3;
 }
 
 .avatar-section span {
@@ -71,7 +73,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #fff;
+    color: #f5f5f5;
     font-size: 18px;
     font-weight: bold;
     pointer-events: none;
@@ -89,29 +91,81 @@ form label {
     align-items: center;
     font-size: 14px;
     font-weight: bold;
-    color: #fff;
+    color: #f5f5f5;
 }
 
 form input {
     padding: 10px;
-    border: 2px solid #007bff;
-    border-radius: 8px;
+    border: 1px solid #44475a;
+    border-radius: 5px;
     font-size: 14px;
+    background-color: #1e1e2f;
+    color: #f5f5f5;
     margin-top: 5px;
 }
 
+form input::placeholder {
+    color: #999;
+}
+
 button {
-    background-color: #007bff;
-    color: white;
+    background-color: #4ecca3;
+    color: #1e1e2f;
     padding: 10px;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     margin-top: 10px;
+    font-weight: bold;
     transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #3bbf99;
+}
+
+.alert {
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.alert.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
+.alert.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.avatar-section {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    cursor: pointer;
+}
+
+#avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+#avatar-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #777;
+    font-weight: bold;
+    pointer-events: none;
 }

@@ -6,6 +6,11 @@ import (
 
 type User struct {
 	gorm.Model
-	Username string `gorm:"unique;not null"`
-	Password string `gorm:"not null"`
+	ID   	  uint
+	Username  string `gorm:"unique;not null"`
+	Password  string `gorm:"not null"`
+	Nickname  string
+	PhotoPath string
+	Role      string `gorm:"default:user"`
+	Email     string // добавьте поле Email
 }
