@@ -6,8 +6,27 @@
     <link rel="stylesheet" href="/static/css/admin.css" />
   </head>
   <body>
+    <style>
+  .back-button {
+    display: inline-block;
+    background-color: #4ecca3;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s ease-in-out;
+    margin-bottom: 20px;
+  }
+
+  .back-button:hover {
+    background-color: #0b7e86;
+  }
+    </style>
     <div class="admin-container">
-      <h1>Добро пожаловать в панель администратора</h1>
+      <div class="admin-container">
+        <a href="/posts_page" class="back-button">← Назад в меню</a>
+        <h1>Добро пожаловать в панель администратора</h1>
       <p>Управляйте пользователями, постами и сообщениями ниже.</p>
 
       <div class="admin-stats">

@@ -12,4 +12,5 @@ type Post struct {
 	CreatedAt time.Time
     Title string 
 	IsAdmin   bool  
+	Comments []Comment
 }

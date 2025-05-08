@@ -16,7 +16,7 @@ func main() {
 		panic("failed to connect to the database")
 	}
 
-	db.AutoMigrate(&models.User{}, &models.Message{})
+	db.AutoMigrate(&models.User{}, &models.Message{}, &models.Post{}, &models.Comment{})
 	handlers.DB = db
 	
 
@@ -78,9 +78,12 @@ func main() {
 		adminGroup.DELETE("/messages/:id", admin.DeleteMessageByAdmin)
 
 	}
+	//комменты
+	router.POST("/comment", handlers.CreateComment)
+
 
 	// Посты
 	router.GET("/feed", handlers.RenderPostsFeed)
 
-	router.Run("217.194.148.61:8080")
+	router.Run("0.0.0.0:8081")
 }

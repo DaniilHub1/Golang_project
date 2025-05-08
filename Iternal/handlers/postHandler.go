@@ -110,7 +110,7 @@ func DeletePost(c *gin.Context) {
 }
 
 func HomePage(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.html", nil)
+	c.HTML(http.StatusOK, "login.html", nil)
 }
 
 func AboutPage(c *gin.Context) {
@@ -164,23 +164,45 @@ func RenderPostsPage(c *gin.Context) {
 	role, _ := c.Cookie("user_role")
 
 	var posts []models.Post
-	database.DB.Order("created_at desc").Preload("User").Find(&posts)
+	err = database.DB.Preload("User").Preload("Comments.User").Order("created_at desc").Find(&posts).Error
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html", gin.H{"Error": "Не удалось загрузить посты"})
+		return
+	}
 
-	// Структура для постов с дополнительной информацией о пользователе
-	type PostWithUser struct {
+	type CommentWithUser struct {
 		Content   string
 		CreatedAt string
 		Username  string
-		IsAdmin   bool // Флаг для проверки, является ли пользователь администратором
 	}
 
-	var data []PostWithUser
+	type PostWithUserAndComments struct {
+		ID        uint
+		Content   string
+		CreatedAt string
+		Username  string
+		Comments  []CommentWithUser
+		IsAdmin   bool
+	}
+
+	var data []PostWithUserAndComments
 	for _, post := range posts {
-		data = append(data, PostWithUser{
+		var comments []CommentWithUser
+		for _, c := range post.Comments {
+			comments = append(comments, CommentWithUser{
+				Content:   c.Content,
+				CreatedAt: c.CreatedAt.Format("02.01.2006 15:04"),
+				Username:  c.User.Username,
+			})
+		}
+
+		data = append(data, PostWithUserAndComments{
+			ID:        post.ID,
 			Content:   post.Content,
 			CreatedAt: post.CreatedAt.Format("02.01.2006 15:04"),
 			Username:  post.User.Username,
-			IsAdmin:   (role == "admin"), // Проверка на роль администратора
+			Comments:  comments,
+			IsAdmin:   (role == "admin"),
 		})
 	}
 
@@ -189,6 +211,8 @@ func RenderPostsPage(c *gin.Context) {
 		"User":  username,
 	})
 }
+
+
 
 type PostWithUser struct {
 	Content   string
