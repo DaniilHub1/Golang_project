@@ -8,6 +8,7 @@ import (
 
 var DB *gorm.DB
 
+
 func InitDB() (*gorm.DB, error) {
     db, err := gorm.Open(sqlite.Open("database/mini_site.db"), &gorm.Config{})
     if err != nil {
@@ -22,3 +23,4 @@ func InitDB() (*gorm.DB, error) {
 
     return DB, nil
 }
+

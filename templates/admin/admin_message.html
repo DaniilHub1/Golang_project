@@ -1,0 +1,29 @@
+{{ define "content" }}
+<h2>Все сообщения</h2>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>От</th>
+    <th>Кому</th>
+    <th>Текст</th>
+    <th>Дата</th>
+    <th>Действие</th>
+  </tr>
+  {{ range .Messages }}
+  <tr>
+    <td>{{ .ID }}</td>
+    <td>{{ .Sender.Username }}</td>
+    <td>{{ .Receiver.Username }}</td>
+    <td>{{ .Content }}</td>
+    <td>{{ .CreatedAt.Format "02.01.2006 15:04" }}</td>
+    <td>
+      <form action="/admin/messages/{{ .ID }}" method="POST" onsubmit="return confirm('Удалить сообщение?');">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit">Удалить</button>
+      </form>
+    </td>
+  </tr>
+  {{ end }}
+</table>
+{{ end }}

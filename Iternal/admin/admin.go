@@ -6,7 +6,6 @@ import (
 	"mini_site/models"
 	"net/http"
 	"strconv"
-
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -94,6 +93,7 @@ func DeleteMessageByAdmin(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Message deleted successfully"})
 }
 
+
 func AdminUsersPage(c *gin.Context) {
 	var users []models.User
 	handlers.DB.Find(&users)
@@ -117,3 +117,20 @@ func AdminPostsPage(c *gin.Context) {
 		"posts": posts,
 	})
 }
+
+
+func AdminMessagesPage(c *gin.Context) {
+	var messages []models.Message
+	err := database.DB.Preload("Sender").Preload("Receiver").Order("created_at desc").Find(&messages).Error
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "admin/messages.html", gin.H{
+			"Error": "Не удалось загрузить сообщения",
+		})
+		return
+	}
+
+	c.HTML(http.StatusOK, "admin/messages.html", gin.H{
+		"Messages": messages,
+	})
+}
+

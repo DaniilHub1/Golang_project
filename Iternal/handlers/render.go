@@ -53,3 +53,4 @@ func RenderPage3(c *gin.Context) {
 
 	tmpl.Execute(c.Writer, nil)
 }
+
