@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="sidebar">
-      <a href="/account">Аккаунт</a>
+      <a href="/account">Публикация</a>
       <a href="/posts_page">Посты</a>
       <a href="/settings">Настройки</a>
       <a href="/login">Вход</a>
@@ -18,7 +18,7 @@
     </div>
     <div class="main-content">
       <div class="content-container">
-        <h2>Аккаунт</h2>
+        <h2>Опубликовать пост</h2>
         <img
           src="{{.Avatar}}"
           id="circle"
@@ -46,8 +46,6 @@
 
           <button type="submit">Добавить пост</button>
         </form>
-
-        <h2>Ваши посты</h2>
         <ul>
           {{range .Posts}}
           <li class="post">
